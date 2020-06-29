@@ -1,2 +1,4 @@
 db.sqlite3
 where_to_go/__pycache__
+/.idea
+/venv
