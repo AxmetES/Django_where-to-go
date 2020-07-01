@@ -1,5 +1,7 @@
 db.sqlite3
 where_to_go/__pycache__
 places/migrations/__pycache__
+places/__pycache__
 /.idea
 /venv
+/media

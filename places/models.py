@@ -7,3 +7,7 @@ class Place(models.Model):
     description_long = models.TextField()
     lng = models.FloatField()
     lat = models.FloatField()
+
+
+class Image(models.Model):
+    image = models.ImageField()
