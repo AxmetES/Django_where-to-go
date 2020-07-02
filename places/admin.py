@@ -8,7 +8,7 @@ from places.models import Place, Image
 class PlaseAdmin(admin.ModelAdmin):
     list_display = ('title',)
     list_display_links = ('title',)
-    fields = ('title', 'description_short', 'description_long', 'lng', 'lat',)
+    fields = ('placeId', 'title', 'description_short', 'description_long', 'lng', 'lat')
 
 
 @admin.register(Image)
