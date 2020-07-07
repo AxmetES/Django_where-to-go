@@ -9,8 +9,15 @@ class PlaseAdmin(admin.ModelAdmin):
     list_display = ('title',)
     list_display_links = ('title',)
     fields = ('placeId', 'title', 'description_short', 'description_long', 'lng', 'lat')
+    readonly_fields = ('id',)
+
+
+class Place_title(admin.TabularInline):
+    model = Place
+    fk_name = 'title'
 
 
 @admin.register(Image)
 class imageAdmin(admin.ModelAdmin):
-    fields = ('image',)
+    inline = [Place_title, ]
+    fields = ('image', 'place')
