@@ -114,7 +114,6 @@
   <script src="{% static 'leaflet-sidebar.js' %}"></script>
 
   <script>
-  {% verbatim %}
     var map = L.map('map');
     map.setView([55.753989, 37.623191], 11);
 
@@ -198,6 +197,7 @@
         }
     }).addTo(map);
 
+<!--  {% verbatim %}-->
     var sidebarApp = new Vue({
       el: '#sidebar-app',
       template: document.getElementById('app-template').innerHTML,
@@ -244,6 +244,7 @@
         }
       },
     });
+<!--  {% endverbatim %}-->
 
     map.on('click', function () {
       sidebarApp.selectedPlace = null;
@@ -251,7 +252,7 @@
     })
 
     async function loadPlaceInfo(placeId, detailsUrl){
-      sidebarApp.selectedPlace = null;
+      sidebarApp.selectedPlace = detailsUrl;
       sidebarApp.loadingPlaceId = placeId;
 
       try {
@@ -281,7 +282,6 @@
         }
       }
     }
-   {% endverbatim %}
 
   </script>
 </body>
