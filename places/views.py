@@ -3,6 +3,7 @@ import json
 from django.shortcuts import render, get_object_or_404
 from places.models import Place, Image
 from django.http import HttpResponse, Http404, JsonResponse
+from django.urls import reverse
 import pprint
 
 
@@ -16,16 +17,7 @@ def serialaized_place(place):
         "properties": {
             "title": place.title,
             "placeId": place.placeId,
-            "detailsUrl": {
-                'title': place.title,
-                'imgs': [image.image.url for image in place.images.all()],
-                'description_short': place.description_short,
-                'description_long': place.description_long,
-                'coordinates': {
-                    'lng': place.lng,
-                    'lat': place.lat
-                }
-            }
+            "detailsUrl": reverse(place_by_id, args=[place.id])
         }
     }
 
@@ -40,13 +32,12 @@ def index(request):
     context = {
         "points": points
     }
-    pprint.pprint(context)
     return render(request, 'index.html', context)
 
 
 def place_by_id(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
-    place_data = {
+    points = {
         'title': place.title,
         'imgs': [image.image.url for image in place.images.all()],
         'description_short': place.description_short,
@@ -56,4 +47,4 @@ def place_by_id(request, place_id):
             'lat': place.lat
         }
     }
-    return HttpResponse(json.dumps(place_data, ensure_ascii=False, indent=4), content_type="application/json")
+    return HttpResponse(json.dumps(points, ensure_ascii=False, indent=4), content_type="application/json")
