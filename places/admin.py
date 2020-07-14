@@ -1,7 +1,9 @@
+import content as content
 from django.contrib import admin
 from django.utils.html import format_html_join, format_html
 from django.utils.safestring import mark_safe
 from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminMixin
+from tinymce.models import HTMLField
 
 from places.models import Place, Image
 
@@ -43,6 +45,7 @@ class PlaceAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
     fields = ('placeId', 'title', 'description_short', 'description_long', 'lng', 'lat')
     inlines = [ImageInline]
+    content = HTMLField()
 
 
 @admin.register(Image)

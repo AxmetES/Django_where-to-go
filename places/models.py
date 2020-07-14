@@ -1,11 +1,12 @@
 from django.db import models
+from tinymce import models as tinymce_models
 
 
 class Place(models.Model):
     placeId = models.TextField(null=True)
     title = models.TextField()
     description_short = models.TextField()
-    description_long = models.TextField()
+    description_long = tinymce_models.HTMLField()
     lng = models.FloatField()
     lat = models.FloatField()
 
@@ -19,7 +20,7 @@ class Image(models.Model):
     position = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta(object):
-        ordering = ['image']
+        ordering = ['position']
 
     def __str__(self):
         return f'{self.place}'
