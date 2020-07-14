@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html_join, format_html
 from django.utils.safestring import mark_safe
+from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminMixin
 
 from places.models import Place, Image
 
@@ -19,10 +20,10 @@ def get_proportion(width, height):
     return new_width, new_height
 
 
-class ImageInline(admin.TabularInline):
+class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
-    extra = 0
     readonly_fields = ('place_image',)
+    extra = 2
 
     def place_image(self, obj):
         width = obj.image.width
@@ -45,13 +46,6 @@ class PlaceAdmin(admin.ModelAdmin):
 
 
 @admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
-    readonly_fields = ['place_image', ]
-
-    def place_image(self, obj):
-        return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-            url=obj.image.url,
-            width=200,
-            height=120,
-        )
-        )
+class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ('image', 'place')
+    list_display_links = ('place',)
