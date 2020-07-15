@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
@@ -127,6 +127,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),
 
 STATIC_ROOT = os.getenv("STATIC_ROOT")
 
-MEDIA_URL = '/media/'
+MEDIA_URL = os.getenv('MEDIA_URL')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, os.getenv('MEDIA_ROOT'))
