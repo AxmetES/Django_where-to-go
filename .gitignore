@@ -6,4 +6,4 @@ places/__pycache__
 /venv
 /media
 .env
-
+static/README.md
