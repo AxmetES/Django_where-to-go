@@ -1,10 +1,9 @@
 import json
 
 from django.shortcuts import render, get_object_or_404
-from places.models import Place, Image
-from django.http import HttpResponse, Http404, JsonResponse
+from places.models import Place
+from django.http import HttpResponse
 from django.urls import reverse
-import pprint
 
 
 def serialaized_place(place):
@@ -28,7 +27,6 @@ def index(request):
         "type": "FeatureCollection",
         "features": [serialaized_place(place) for place in places]
     }
-    pprint.pprint(points)
     context = {
         "points": points
     }

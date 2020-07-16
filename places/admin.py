@@ -1,7 +1,6 @@
 import content as content
 from django.contrib import admin
-from django.utils.html import format_html_join, format_html
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 from adminsortable2.admin import SortableInlineAdminMixin, SortableAdminMixin
 from tinymce.models import HTMLField
 
