@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -120,11 +121,9 @@ USE_TZ = True
 
 STATIC_URL = os.getenv('STATIC_URL', '/static/')
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),
-                    os.path.join(BASE_DIR, "static/places"),
-                    os.path.join(BASE_DIR, "static/.gitbook/assets"), ]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
-STATIC_ROOT = os.getenv(os.path.join(BASE_DIR, "STATIC_ROOT"))
+STATIC_ROOT = os.path.join(BASE_DIR, os.getenv('STATIC_ROOT'))
 
 MEDIA_URL = os.getenv('MEDIA_URL')
 
