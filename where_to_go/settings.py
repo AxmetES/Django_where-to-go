@@ -125,7 +125,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),
                     os.path.join(BASE_DIR, "static/places"),
                     os.path.join(BASE_DIR, "static/.gitbook/assets"), ]
 
-STATIC_ROOT = os.getenv("STATIC_ROOT")
+STATIC_ROOT = os.getenv(os.path.join(BASE_DIR, "STATIC_ROOT"))
 
 MEDIA_URL = os.getenv('MEDIA_URL')
 
