@@ -1,7 +1,8 @@
-### Interesting places
+### "Interesting places".
 A project to highlight and describe interesting places on 
 the map of Moscow.
-### Get start
+
+### Get start.
 - Clone project from repository.
 - Create virtual environment and install requirements.txt.
 - Create .env with this variables and input yours values:
@@ -17,8 +18,11 @@ DEBUG=False
 - Create superuser.
 - Enter place information by admin site.
 
-### Run
+### Run.
 In cmd ```python manage.py runserver```.
 
-### Motivation
+### Deploy example.
+[Example site](yerkin.pythonanywhere.com)  Deployed on [www.pythonanywhere.com](www.pythonanywhere.com)
+
+### Motivation.
 The code is written for educational purposes - this is a lesson in Python and web development on the site [Devman](https://dvmn.org).

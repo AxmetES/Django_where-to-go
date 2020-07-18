@@ -3,7 +3,7 @@ from tinymce import models as tinymce_models
 
 
 class Place(models.Model):
-    placeId = models.TextField(null=True)
+    placeId = models.TextField(null=True, blank=True)
     title = models.TextField()
     description_short = models.TextField()
     description_long = tinymce_models.HTMLField()
@@ -15,7 +15,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    image = models.ImageField(null=True, blank=True, default=0)
+    image = models.ImageField(null=True, blank=True)
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images', default=True)
     position = models.PositiveIntegerField(null=True, blank=True)
 
