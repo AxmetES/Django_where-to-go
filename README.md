@@ -22,7 +22,7 @@ DEBUG=False
 In cmd ```python manage.py runserver```.
 
 ### Deploy example.
-Example site "yerkin.pythonanywhere.com"  Deployed by "www.pythonanywhere.com".
+Example site ["yerkin.pythonanywhere.com"]("yerkin.pythonanywhere.com")  Deployed by "www.pythonanywhere.com".
 
 ### Motivation.
 The code is written for educational purposes - this is a lesson in Python and web development on the site [Devman](https://dvmn.org).
