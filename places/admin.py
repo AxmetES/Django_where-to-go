@@ -41,7 +41,7 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 class PlaceAdmin(admin.ModelAdmin):
     list_display = ('title',)
     list_display_links = ('title',)
-    fields = ('placeId', 'title', 'description_short', 'description_long', 'lng', 'lat')
+    fields = ('placeId', 'title', 'short_description', 'long_description', 'lng', 'lat')
     inlines = [ImageInline]
     content = HTMLField()
 

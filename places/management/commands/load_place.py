@@ -26,13 +26,13 @@ class Command(BaseCommand):
         response.raise_for_status()
         response_data = response.json()
         title = response_data['title']
-        description_short = response_data['description_short']
-        description_long = response_data['description_long']
+        short_description = response_data['description_short']
+        long_description = response_data['description_long']
         lng = response_data['coordinates']['lng']
         lat = response_data['coordinates']['lat']
 
-        Place.objects.get_or_create(title=title, description_short=description_short,
-                                    description_long=description_long,
+        Place.objects.get_or_create(title=title, short_description=short_description,
+                                    long_description=long_description,
                                     lng=lng, lat=lat)
         place = Place.objects.filter(title=title)
 
