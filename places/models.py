@@ -15,8 +15,8 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    image = models.ImageField(null=True, blank=True)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images', default=True)
+    image = models.ImageField(default='default')
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
     position = models.PositiveIntegerField(null=True, blank=True)
 
     class Meta(object):
