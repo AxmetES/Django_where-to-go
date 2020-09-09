@@ -2,7 +2,7 @@
 A project to highlight and describe interesting places on 
 the map of Moscow.
 
-### Get start
+### Get started
 - Clone project from repository.
 - Create virtual environment: ```python3 -m venv venv```.
 - Activate: ```source venv/bin/activate```.
