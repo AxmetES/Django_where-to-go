@@ -8,45 +8,29 @@ from places.models import Place, Image
 
 # Register your models here.
 
-
-def get_proportion(width, height):
-    max_height = 200
-    if width > height:
-        ratio = max_height / width
-    else:
-        ratio = max_height / height
-    new_width = ratio * width
-    new_height = ratio * height
-    return new_width, new_height
-
-
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
-    readonly_fields = ('place_image',)
-    extra = 2
+    readonly_fields = ['place_image']
+    extra = 3
 
     def place_image(self, obj):
-        width = obj.image.width
-        height = obj.image.height
-        new_width, new_height = get_proportion(width, height)
-        return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-            url=obj.image.url,
-            width=new_width,
-            height=new_height
-        )
-        )
+        return format_html('<img src="{url}" width="{width}" height={height} />',
+                           url=obj.image.url,
+                           width=None,
+                           height=200
+                           )
 
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
-    list_display = ('title',)
-    list_display_links = ('title',)
-    fields = ('placeId', 'title', 'short_description', 'long_description', 'lng', 'lat')
+    list_display = ['title']
+    list_display_links = ['title']
+    fields = ['placeId', 'title', 'short_description', 'long_description', 'lng', 'lat']
     inlines = [ImageInline]
     content = HTMLField()
 
 
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('image', 'place')
-    list_display_links = ('place',)
+    list_display = ['image', 'place']
+    list_display_links = ['place']

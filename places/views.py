@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 
 
-def serialaized_place(place):
+def serialize_point(place):
     return {
         "type": "Feature",
         "geometry": {
@@ -24,7 +24,7 @@ def index(request):
     places = Place.objects.all()
     points = {
         "type": "FeatureCollection",
-        "features": [serialaized_place(place) for place in places]
+        "features": [serialize_point(place) for place in places]
     }
     context = {
         "points": points
