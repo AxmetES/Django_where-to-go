@@ -9,11 +9,11 @@ the map of Moscow.
 - And install requirements.txt: ```pip install -r requirements.txt```
 - Create .env with this variables and input yours values:
 ```.env
-STATIC_URL='****'
-STATIC_ROOT='****'
-SECRET_KEY ='****'
-MEDIA_URL='****'
-MEDIA_ROOT='****'
+STATIC_URL=****
+STATIC_ROOT=****
+SECRET_KEY=****
+MEDIA_URL=****
+MEDIA_ROOT=****
 DEBUG=False
 ```
 - Create DataBase: ```python manage.py migrate``` .

@@ -7,3 +7,4 @@ places/__pycache__
 /media
 .env
 static/README.md
+/assets
