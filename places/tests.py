@@ -1,3 +1,5 @@
-from django.test import TestCase
-
-# Create your tests here.
+image = None
+if image:
+    print('yes')
+else:
+    print('not')

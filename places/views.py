@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render, get_object_or_404
 from places.models import Place
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
 from django.urls import reverse
 
 
@@ -14,7 +14,7 @@ def serialize_point(place):
         },
         "properties": {
             "title": place.title,
-            "placeId": place.placeId,
+            "placeId": place.id,
             "detailsUrl": reverse(place_by_id, args=[place.id])
         }
     }
@@ -44,4 +44,4 @@ def place_by_id(request, place_id):
             'lat': place.lat
         }
     }
-    return HttpResponse(json.dumps(points, ensure_ascii=False, indent=4), content_type="application/json")
+    return JsonResponse(points, safe=False, json_dumps_params={'ensure_ascii': False, 'indent': 4})

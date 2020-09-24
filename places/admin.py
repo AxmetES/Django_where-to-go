@@ -14,11 +14,15 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     extra = 3
 
     def place_image(self, obj):
-        return format_html('<img src="{url}" width="{width}" height={height} />',
-                           url=obj.image.url,
-                           width=None,
-                           height=200
-                           )
+        try:
+            return format_html('<img src="{url}" width="{width}" height={height} />',
+                               url=obj.image.url,
+                               width=None,
+                               height=200
+                               )
+        except Exception as msg:
+            print(msg)
+            return 'Здесь будет превью, когда вы выберете файл.'
 
 
 @admin.register(Place)
