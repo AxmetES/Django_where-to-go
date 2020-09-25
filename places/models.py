@@ -19,7 +19,7 @@ class Image(models.Model):
     position = models.PositiveIntegerField(blank=True, verbose_name="Позиция")
 
     def __str__(self):
-        return self.image
+        return str(self.image)
 
     class Meta(object):
         ordering = ['position']
