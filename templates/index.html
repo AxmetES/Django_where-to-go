@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="https://unpkg.com/@ansur/leaflet-pulse-icon@0.1.1/dist/L.Icon.Pulse.css">
 
     <style>
-    {% verbatim %}
     body {
       padding: 0;
       margin: 0;
@@ -41,7 +40,8 @@
       color: red;
       width: 100px;
     }
-    {% endverbatim %}
+
+
 
     </style>
 
@@ -66,15 +66,11 @@
 
                 <img v-if="mainPhotoSrc" v-bind:src="mainPhotoSrc" class="d-block shadow mb-3 rounded"
                      v-bind:alt="selectedPlace.title">
-
                 {% verbatim %}
-                <h5 class="mb-3">{{selectedPlace.title}}</h5>
-                {% endverbatim %}
+                  <h5 class="mb-3">{{selectedPlace.title}}</h5>
 
-                {% verbatim %}
-                <p>{{selectedPlace.short_description}}</p>
+                  <p>{{selectedPlace.short_description}}</p>
                 {% endverbatim %}
-
                 <div id="place-photos" class="carousel slide mb-3 shadow" data-ride="carousel" data-interval="5000">
                     <ol class="carousel-indicators">
                         <template v-for="(img, index) in carouselImgs" :key="img">
@@ -138,7 +134,6 @@
 <script src="{% static 'leaflet-sidebar.js' %}"></script>
 
 <script>
-  {% verbatim %}
     var map = L.map('map');
     map.setView([55.753989, 37.623191], 11);
 
@@ -303,8 +298,6 @@
         }
       }
     }
-  {% endverbatim %}
-
 </script>
 </body>
 </html>

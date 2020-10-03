@@ -38,13 +38,14 @@ class Command(BaseCommand):
         place = Place.objects.get_or_create(title=title, short_description=short_description,
                                             long_description=long_description,
                                             lng=lng, lat=lat)
+        place_data, flag = place
 
-        imge = response_data['imgs']
+        img = response_data['imgs']
 
-        for num, url in enumerate(imge):
-            image = Image.objects.create(place=place[0], position=num)
-            response_imge = requests.get(url)
-            content = ContentFile(response_imge.content)
+        for num, url in enumerate(img):
+            image = Image.objects.create(place=place_data, position=num)
+            response_img = requests.get(url)
+            content = ContentFile(response_img.content)
             file_name = get_filename(url)
             image.image.save(file_name, content, True)
 
