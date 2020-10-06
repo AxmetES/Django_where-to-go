@@ -35,15 +35,16 @@ class Command(BaseCommand):
         lng = response_data['coordinates']['lng']
         lat = response_data['coordinates']['lat']
 
-        place = Place.objects.get_or_create(title=title, short_description=short_description,
-                                            long_description=long_description,
-                                            lng=lng, lat=lat)
-        place_data, flag = place
+        place_data = Place.objects.get_or_create(title=title, short_description=short_description,
+                                                 long_description=long_description,
+                                                 lng=lng, lat=lat)
+        place, _ = place_data
 
-        img = response_data['imgs']
+        images_url = response_data['imgs']
+        print(images_url)
 
-        for num, url in enumerate(img):
-            image = Image.objects.create(place=place_data, position=num)
+        for num, url in enumerate(images_url):
+            image = Image.objects.create(place=place, position=num)
             response_img = requests.get(url)
             content = ContentFile(response_img.content)
             file_name = get_filename(url)
