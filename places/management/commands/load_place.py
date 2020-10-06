@@ -41,7 +41,6 @@ class Command(BaseCommand):
         place, _ = place_data
 
         images_url = response_data['imgs']
-        print(images_url)
 
         for num, url in enumerate(images_url):
             image = Image.objects.create(place=place, position=num)
