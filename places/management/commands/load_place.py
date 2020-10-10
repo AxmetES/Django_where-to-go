@@ -7,7 +7,7 @@ import requests
 from urllib.parse import urlparse
 from PIL import Image
 from django.core.files.base import ContentFile
-
+from django.core.exceptions import ObjectDoesNotExist
 from places.models import Place, Image
 
 
@@ -15,6 +15,17 @@ def get_filename(url):
     parsed = urlparse(url)
     file = parsed.path.split('/')[-1]
     return file
+
+
+def replace_bd_id(images):
+    names = []
+    obj_to_str = [image.image.__str__() for image in images]
+    for image in obj_to_str:
+        name_id, extend = image.split('.')
+        name, bd_id = name_id.split('_')
+        file_name = name + '.' + extend
+        names.append(file_name)
+    return names
 
 
 class Command(BaseCommand):
@@ -35,19 +46,34 @@ class Command(BaseCommand):
         lng = response_data['coordinates']['lng']
         lat = response_data['coordinates']['lat']
 
-        place_data = Place.objects.get_or_create(title=title, short_description=short_description,
-                                                 long_description=long_description,
-                                                 lng=lng, lat=lat)
-        place, _ = place_data
-
+        place, is_created = Place.objects.get_or_create(title=title, short_description=short_description,
+                                                        defaults={'long_description': long_description,
+                                                                  'lng': lng, 'lat': lat, })
         images_url = response_data['imgs']
+        if is_created:
+            print(is_created)
+            for num, url in enumerate(images_url):
+                image = Image.objects.create(place=place, position=num)
+                response_img = requests.get(url)
+                content = ContentFile(response_img.content)
+                file_name = get_filename(url)
+                image.image.save(file_name, content, True)
 
-        for num, url in enumerate(images_url):
-            image = Image.objects.create(place=place, position=num)
-            response_img = requests.get(url)
-            content = ContentFile(response_img.content)
-            file_name = get_filename(url)
-            image.image.save(file_name, content, True)
+        else:
+            print(is_created)
+            new_images = []
+            place_images = place.images.all()
+            images = replace_bd_id(place_images)
+            for url in images_url:
+                file_name = get_filename(url)
+                if file_name not in images:
+                    new_images.append(url)
+            for num, url in enumerate(new_images, len(place_images) + 1):
+                image = Image.objects.create(place=place, position=num)
+                response_img = requests.get(url)
+                content = ContentFile(response_img.content)
+                file_name = get_filename(url)
+                image.image.save(file_name, content, True)
 
 
 if __name__ == '__main__':

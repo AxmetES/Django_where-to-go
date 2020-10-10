@@ -11,7 +11,7 @@ from places.models import Place, Image
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     readonly_fields = ['place_image']
-    extra = 3
+    extra = 0
 
     def place_image(self, obj):
         if obj.image:
@@ -28,8 +28,8 @@ class PlaceAdmin(admin.ModelAdmin):
     list_display = ['title']
     list_display_links = ['title']
     fields = ['title', 'short_description', 'long_description', 'lng', 'lat']
-    inlines = [ImageInline]
     content = HTMLField()
+    inlines = [ImageInline]
 
 
 @admin.register(Image)
