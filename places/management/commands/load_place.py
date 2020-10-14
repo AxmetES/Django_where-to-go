@@ -7,7 +7,6 @@ import requests
 from urllib.parse import urlparse
 from PIL import Image
 from django.core.files.base import ContentFile
-from django.core.exceptions import ObjectDoesNotExist
 from places.models import Place, Image
 
 
@@ -46,19 +45,18 @@ class Command(BaseCommand):
         lng = response_data['coordinates']['lng']
         lat = response_data['coordinates']['lat']
 
-        place, is_created = Place.objects.get_or_create(title=title, short_description=short_description,
-                                                        defaults={'long_description': long_description,
-                                                                  'lng': lng, 'lat': lat, })
+        place, is_created = Place.objects.update_or_create(title=title, short_description=short_description, lng=lng,
+                                                           lat=lat, defaults={'long_description': long_description})
         images_url = response_data['imgs']
         if is_created:
             print(is_created)
             for num, url in enumerate(images_url):
                 image = Image.objects.create(place=place, position=num)
                 response_img = requests.get(url)
+                response_img.raise_for_status()
                 content = ContentFile(response_img.content)
                 file_name = get_filename(url)
                 image.image.save(file_name, content, True)
-
         else:
             print(is_created)
             new_images = []
