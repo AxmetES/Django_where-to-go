@@ -1,8 +1,9 @@
 import logging
-import requests
-from django.core.management.base import BaseCommand
 from urllib.parse import urlparse
+
+import requests
 from django.core.files.base import ContentFile
+from django.core.management.base import BaseCommand
 
 from places.models import Place, Image
 
@@ -11,17 +12,6 @@ def get_filename(url):
     url_fragments = urlparse(url)
     file_name = url_fragments.path.split('/')[-1]
     return file_name
-
-
-def replace_bd_id(images):
-    names = []
-    obj_to_str = [image.image.__str__() for image in images]
-    for image in obj_to_str:
-        name_id, extend = image.split('.')
-        name, bd_id = name_id.split('_')
-        file_name = name + '.' + extend
-        names.append(file_name)
-    return names
 
 
 class Command(BaseCommand):
